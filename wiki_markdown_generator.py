@@ -1,9 +1,7 @@
 import os, imp, inspect
 
-# Add GitHub wiki dir here
-os.chdir(r"")
-# Import module here
-m = imp.load_source('m', r"")
+#### UPDATE HERE: Add your module path
+module_path = ''
 
 def getdocs():
     """ Returns a list of tuples with function name and function docs.
@@ -30,10 +28,20 @@ def createfiles(items):
         file.close
 
 
-def main():
+def main(module_path):
+    # markdown files will be added here
+    dir_path = os.path.dirname(os.path.realpath(module_path))
+    os.chdir(dir_path)
+
+    # import module
+    m = imp.load_source('m', module_path)
+    
+    # get all functions
     docs = getdocs()
+    
+    # create an .md file for each function
     createfiles(docs)
 
 
 if __name__ == '__main__':
-    main()
+    main(module_path)
